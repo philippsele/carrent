@@ -6,17 +6,12 @@ using System.Threading.Tasks;
 
 namespace CarRentAPI.CustomerManagmenet.Domain
 {
-    class Customer
+    public class Customer
     {
-        public string Vorname { get; set; }
-        public string Nachname { get; set; }
-        public string Strasse { get; set; }
-        public string Ort { get; set; }
-        public int Kundennummer { get; set; }
-
-        public Customer()
-        {
-            
-        }
+        public int CustomerId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Street { get; set; }
+        public string City { get; set; }
     }
 }

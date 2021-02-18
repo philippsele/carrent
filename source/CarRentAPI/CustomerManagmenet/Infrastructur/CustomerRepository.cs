@@ -7,29 +7,38 @@ using CarRentAPI.CustomerManagmenet.Domain;
 
 namespace CarRentAPI.CustomerManagmenet.Infrastructur
 {
-    class CustomerRepository : ICustomerRepository
+    public class CustomerRepository : ICustomerRepository
     {
-        void ICustomerRepository.Add(Customer customer)
+        public IList<Customer> Get()
         {
             throw new NotImplementedException();
         }
 
-        Customer ICustomerRepository.FindById(int id)
+        public Customer GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        IEnumerable<Customer> ICustomerRepository.FindByName(string name)
+        public IList<Customer> FindById(int id)
         {
             throw new NotImplementedException();
         }
 
-        void ICustomerRepository.Remove(Customer customer)
+        public IList<Customer> FindByName(string name)
         {
             throw new NotImplementedException();
         }
 
-        void ICustomerRepository.Remove(int id)
+        public void Insert(Customer customer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Customer customer)
+        {
+            throw new NotImplementedException();
+        }
+        public void Delete(Customer customer)
         {
             throw new NotImplementedException();
         }

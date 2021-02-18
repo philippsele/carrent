@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CarRentAPI.Common;
 
 namespace CarRentAPI.CarManagmenet.Domain
 {
-    public interface ICarRepository : IRepository<Car>
+    public class CarBrand
     {
+        public Guid BrandId { get; set; }
+        public string Brand { get; set; }
     }
 }

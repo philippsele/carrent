@@ -6,16 +6,20 @@ using System.Threading.Tasks;
 
 namespace CarRentAPI.CustomerManagmenet.Domain
 {
-    interface ICustomerRepository
+    public interface ICustomerRepository
     {
-        Customer FindById(int id);
+        IList<Customer> Get();
 
-        IEnumerable<Customer> FindByName(string name);
+        Customer GetById(int id);
 
-        void Add(Customer customer);
+        IList<Customer> FindById(int id);
 
-        void Remove(Customer customer);
+        IList<Customer> FindByName(string name);
 
-        void Remove(int id);
+        void Insert(Customer customer);
+
+        void Update(Customer customer);
+
+        void Delete(Customer customer);
     }
 }

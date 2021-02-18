@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace CarRentAPI.CarManagmenet.Api
 {
-    class CarDTO
+    
+    public class CarClassDTO
     {
+        public Guid? CarClassId { get; set; }
+        public string Class { get; set; }
+        public decimal PricePerDay { get; set; }
     }
 }

@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace CarRentAPI.CarManagmenet.Api
 {
-    class CarController
+    public class CarBrandDTO
     {
+        public Guid? CarBrandId { get; set; }
+        public string Brand { get; set; }
     }
 }

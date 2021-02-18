@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace CarRentAPI.CustomerManagmenet.Application
 {
-    interface ICustomerService
+    public interface ICustomerService
     {
+        IList<CustomerDTO> Get();
+        CustomerDTO GetById(int id);
+        IList<CustomerDTO> FindById(int id);
+        IList<CustomerDTO> FindByName(string search);
+        void Insert(CustomerDTO c);
+        void Update(CustomerDTO customer);
+        void Delete(CustomerDTO customer);
     }
 }
