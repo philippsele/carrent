@@ -10,7 +10,6 @@ namespace CarRentAPI.CustomerManagmenet.Application
     {
         IList<CustomerDTO> Get();
         CustomerDTO GetById(int id);
-        IList<CustomerDTO> FindById(int id);
         IList<CustomerDTO> FindByName(string search);
         void Insert(CustomerDTO c);
         void Update(CustomerDTO customer);

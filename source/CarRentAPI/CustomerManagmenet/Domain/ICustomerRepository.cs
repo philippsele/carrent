@@ -12,8 +12,6 @@ namespace CarRentAPI.CustomerManagmenet.Domain
 
         Customer GetById(int id);
 
-        IList<Customer> FindById(int id);
-
         IList<Customer> FindByName(string name);
 
         void Insert(Customer customer);

@@ -28,11 +28,6 @@ namespace CarRentAPI.CustomerManagmenet.Application
             return _mapping.MappingCustomer(_customerRepository.GetById(id));
         }
 
-        public IList<CustomerDTO> FindById(int id)
-        {
-            return _mapping.MappingCustomers(_customerRepository.FindById(id));
-        }
-
         public IList<CustomerDTO> FindByName(string searchString)
         {
             return _mapping.MappingCustomers(_customerRepository.FindByName(searchString));

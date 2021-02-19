@@ -1,17 +1,17 @@
-﻿using System;
+﻿using CarRentAPI.CustomerManagmenet.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CarRentAPI.CustomerManagmenet.Domain;
 
-namespace CarRentAPI.CustomerManagmenet.Application
+namespace CarRentAPI.CustomerManagmenet.Infrastructur
 {
-    public class CustomerMappingService : ICustomerMappingService
+    class CustomerModelMappingService : ICustomerModelMappingService
     {
-        public IList<CustomerDTO> MappingCustomers(IList<Customer> customers)
+        public IList<Customer> MappingCustomerModels(IList<CustomerModel> customers)
         {
-            var returnList = customers.Select(c => new CustomerDTO()
+            var returnList = customers.Select(c => new Customer()
             {
                 CustomerId = c.CustomerId,
                 FirstName = c.FirstName,
@@ -22,9 +22,9 @@ namespace CarRentAPI.CustomerManagmenet.Application
             return returnList;
         }
 
-        public CustomerDTO MappingCustomer(Customer customer)
+        public Customer MappingCustomerModel(CustomerModel customer)
         {
-            var returnCustomer = new CustomerDTO
+            var returnCustomer = new Customer
             {
                 CustomerId = customer.CustomerId,
                 FirstName = customer.FirstName,
@@ -35,11 +35,11 @@ namespace CarRentAPI.CustomerManagmenet.Application
             return returnCustomer;
         }
 
-        public Customer MappingCustomerDTO(CustomerDTO customer)
+        public CustomerModel MappingCustomer(Customer customer)
         {
-            var returnCustomer = new Customer
+            var returnCustomer = new CustomerModel
             {
-                CustomerId = customer.CustomerId.GetValueOrDefault(-1),
+                CustomerId = customer.CustomerId,
                 FirstName = customer.FirstName,
                 LastName = customer.LastName,
                 Street = customer.Street,
@@ -47,5 +47,9 @@ namespace CarRentAPI.CustomerManagmenet.Application
             };
             return returnCustomer;
         }
+
+        
+
+        
     }
 }
