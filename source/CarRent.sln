@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRentAPI", "CarRentAPI\CarRentAPI.csproj", "{8E00A971-6DBB-4DC0-9A5D-F8095DFAFC36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRentAPITests", "CarRentAPITests\CarRentAPITests.csproj", "{6299A614-0139-497F-AEA3-CC7101A858DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRentAPITests", "CarRentAPITests\CarRentAPITests.csproj", "{6299A614-0139-497F-AEA3-CC7101A858DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRentGUI", "CarRentGUI\CarRentGUI.csproj", "{9D07548B-64D7-4596-9B32-58D3082182F0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{6299A614-0139-497F-AEA3-CC7101A858DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6299A614-0139-497F-AEA3-CC7101A858DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6299A614-0139-497F-AEA3-CC7101A858DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D07548B-64D7-4596-9B32-58D3082182F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D07548B-64D7-4596-9B32-58D3082182F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D07548B-64D7-4596-9B32-58D3082182F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D07548B-64D7-4596-9B32-58D3082182F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

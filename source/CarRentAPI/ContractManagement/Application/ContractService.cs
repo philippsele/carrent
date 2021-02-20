@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CarRentAPI.CarManagemenet.Application;
-using CarRentAPI.CarManagmenet.Api;
-using CarRentAPI.CarManagmenet.Domain;
+using CarRentAPI.CarManagement.Application;
+using CarRentAPI.CarManagement.Api;
+using CarRentAPI.CarManagement.Domain;
 using CarRentAPI.ContractManagement.Domain;
+using CarRentAPI.ContractManagement.Infrastructur;
 using CarRentAPI.CustomerManagmenet.Application;
 
 namespace CarRentAPI.ContractManagement.Application
@@ -17,13 +18,13 @@ namespace CarRentAPI.ContractManagement.Application
         private readonly IContractRepository _contractRepository;
         private readonly IContractMappingService _mapping;
 
-        public ContractService(IContractRepository contractRepository)
+        public ContractService()
         {
-            _contractRepository = contractRepository;
+            _contractRepository = new ContractRepository();
             _mapping = new ContractMappingService();
         }
 
-        public IEnumerable<ContractDTO> GetContracts()
+        public IList<ContractDTO> GetContracts()
         {
             return _mapping.MappingContracts(_contractRepository.GetContracts());
         }

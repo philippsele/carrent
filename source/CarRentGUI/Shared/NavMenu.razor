@@ -1,0 +1,59 @@
+﻿<div class="top-row pl-4 navbar navbar-dark">
+    <a class="navbar-brand" href="">CarRentGUI</a>
+    <button class="navbar-toggler" @onclick="ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <ul class="nav flex-column">
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Home
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="customer">
+                <span class="oi oi-person" aria-hidden="true"></span> Customers
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="car">
+                <span class="oi oi-person" aria-hidden="true"></span> Cars
+            </NavLink>
+        </li>
+        <ul>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="carType">
+                    <span class="oi oi-person" aria-hidden="true"></span> Car Types
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="carBrand">
+                    <span class="oi oi-person" aria-hidden="true"></span> Car Brands
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="carClass">
+                    <span class="oi oi-person" aria-hidden="true"></span> Car Classes
+                </NavLink>
+            </li>
+        </ul>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="contract">
+                <span class="oi oi-person" aria-hidden="true"></span> Contracts
+            </NavLink>
+        </li>
+    </ul>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

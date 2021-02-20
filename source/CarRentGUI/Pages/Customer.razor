@@ -1,0 +1,140 @@
+﻿@page "/customer"
+
+@using CarRentAPI.CustomerManagmenet.Api
+
+@inject CustomerController CustomerController
+
+<h1>Kunden Verwaltung</h1>
+
+<p>Kunden mittels ID oder Name suchen: <input type="text" @bind-value="@_searchBox" @bind-value:event="oninput" /><button class="btn btn-primary" @onclick="Search">Suchen</button><button class="btn btn-primary" @onclick="Reload">Reset</button></p>
+
+
+<button class="btn btn-primary" @onclick="Insert">Neuer Kunde</button>
+
+<br />
+<br />
+<br />
+
+@if (_customers == null && _customer == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    if (_customer == null)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Vorname</th>
+                    <th>Nachname</th>
+                    <th>Strasse</th>
+                    <th>Ort</th>
+                    <th>Ändern</th>
+                    <th>Löschen</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var customer in _customers)
+                {
+                    <tr>
+                        <td>@customer.CustomerId</td>
+                        <td>@customer.FirstName</td>
+                        <td>@customer.LastName</td>
+                        <td>@customer.Street</td>
+                        <td>@customer.City</td>
+                        <td><button class="btn btn-primary" @onclick="@(() => _customer = customer)">C</button></td>
+                        <td><button class="btn btn-primary" @onclick="@(() => Delete(customer))">D</button></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Vorname</th>
+                    <th>Nachname</th>
+                    <th>Strasse</th>
+                    <th>Ort</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@_customer.CustomerId</td>
+                    <td><input type="text" @bind-value="@_customer.FirstName" @bind-value:event="oninput" /></td>
+                    <td><input type="text" @bind-value="@_customer.LastName" @bind-value:event="oninput" /></td>
+                    <td><input type="text" @bind-value="@_customer.Street" @bind-value:event="oninput" /></td>
+                    <td><input type="text" @bind-value="@_customer.City" @bind-value:event="oninput" /></td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-primary" @onclick="@(() => Change(_customer))">Speichern</button>
+        <button class="btn btn-primary" @onclick="@(() => Delete(_customer))">Löschen</button>
+        <button class="btn btn-primary" @onclick="@(() => _customer = null)">Zurück</button>
+    }
+
+}
+
+@code {
+    private IList<CustomerDTO> _customers;
+
+    private CustomerDTO _customer;
+
+    private string _searchBox;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _customer = null;
+        _customers = await CustomerController.Get();
+    }
+
+    private async Task Search()
+    {
+        int id;
+        if (int.TryParse(_searchBox, out id))
+        {
+            _customer = await CustomerController.GetById(id);
+        }
+        else
+        {
+            _customers = await CustomerController.FindByName(_searchBox);
+        }
+
+    }
+
+    private async Task Reload()
+    {
+        _customers = await CustomerController.Get();
+    }
+
+    private void Change(CustomerDTO c)
+    {
+        if (c.CustomerId == 0)
+        {
+            CustomerController.Insert(c);
+        }
+        else
+        {
+            CustomerController.Update(c);
+        }
+        Reload();
+    }
+
+    private void Delete(CustomerDTO c)
+    {
+        CustomerController.Delete(c);
+        Reload();
+    }
+
+    private void Insert()
+    {
+        _customer = new CustomerDTO();
+        _customer.CustomerId = 0;
+    }
+
+}

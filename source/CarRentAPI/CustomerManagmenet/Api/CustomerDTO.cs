@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarRentAPI.CustomerManagmenet.Application
+namespace CarRentAPI.CustomerManagmenet.Api
 {
     public class CustomerDTO
     {

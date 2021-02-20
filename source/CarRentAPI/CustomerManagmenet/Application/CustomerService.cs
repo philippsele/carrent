@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CarRentAPI.CustomerManagmenet.Api;
 using CarRentAPI.CustomerManagmenet.Domain;
+using CarRentAPI.CustomerManagmenet.Infrastructur;
 
 namespace CarRentAPI.CustomerManagmenet.Application
 {
@@ -12,9 +14,9 @@ namespace CarRentAPI.CustomerManagmenet.Application
         private readonly ICustomerRepository _customerRepository;
         private readonly ICustomerMappingService _mapping;
 
-        public CustomerService(ICustomerRepository customerRepository)
+        public CustomerService()
         {
-            _customerRepository = customerRepository;
+            _customerRepository = new CustomerRepository();
             _mapping = new CustomerMappingService();
         }
 

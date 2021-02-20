@@ -34,22 +34,5 @@ namespace CarRentAPI.CustomerManagmenet.Infrastructur
             };
             return returnCustomer;
         }
-
-        public CustomerModel MappingCustomer(Customer customer)
-        {
-            var returnCustomer = new CustomerModel
-            {
-                CustomerId = customer.CustomerId,
-                FirstName = customer.FirstName,
-                LastName = customer.LastName,
-                Street = customer.Street,
-                City = customer.City
-            };
-            return returnCustomer;
-        }
-
-        
-
-        
     }
 }

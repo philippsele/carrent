@@ -1,0 +1,140 @@
+﻿@page "/car"
+
+@using CarRentAPI.CarManagement.Api
+
+@inject CarController CarController
+
+<h1>Auto Verwaltung</h1>
+
+<p>Auto mittels ID suchen: <input type="text" @bind-value="@_searchBox" @bind-value:event="oninput" /><button class="btn btn-primary" @onclick="Search">Suchen</button><button class="btn btn-primary" @onclick="Reload">Reset</button></p>
+
+
+<button class="btn btn-primary" @onclick="Insert">Neuer Kunde</button>
+
+<br />
+<br />
+<br />
+
+@if (_cars == null && _car == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    if (_car == null)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Typ</th>
+                    <th>Marke</th>
+                    <th>Klasse</th>
+                    <th>Preis pro Tag</th>
+                    <th>Ändern</th>
+                    <th>Löschen</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var car in _cars)
+                {
+                    <tr>
+                        <td>@car.CarId</td>
+                        <td>@car.Type</td>
+                        <td>@car.Brand</td>
+                        <td>@car.Class</td>
+                        <td>@car.PricePerDay</td>
+                        <td><button class="btn btn-primary" @onclick="@(() => _car = car)">C</button></td>
+                        <td><button class="btn btn-primary" @onclick="@(() => Delete(car))">D</button></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Type</th>
+                    <th>Marke</th>
+                    <th>Klasse</th>
+                    <th>Preis pro Tag</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@_car.CarId</td>
+                    <td><input type="text" @bind-value="@_car.Type" @bind-value:event="oninput" /></td>
+                    <td><input type="text" @bind-value="@_car.Brand" @bind-value:event="oninput" /></td>
+                    <td><input type="text" @bind-value="@_car.Class" @bind-value:event="oninput" /></td>
+                    <td><input type="text" @bind-value="@_car.PricePerDay" @bind-value:event="oninput" /></td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-primary" @onclick="@(() => Change(_car))">Speichern</button>
+        <button class="btn btn-primary" @onclick="@(() => Delete(_car))">Löschen</button>
+        <button class="btn btn-primary" @onclick="@(() => _car = null)">Zurück</button>
+    }
+
+}
+
+@code {
+    private IList<CarDTO> _cars;
+
+    private CarDTO _car;
+
+    private string _searchBox;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _car = null;
+        _cars = await CarController.GetCars();
+    }
+
+    private async Task Search()
+    {
+        int id;
+        if (int.TryParse(_searchBox, out id))
+        {
+            _car = await CarController.GetById(id);
+        }
+        else
+        {
+            _searchBox = "Bitte korrekte ID eingeben!";
+        }
+
+    }
+
+    private async Task Reload()
+    {
+        _cars = await CarController.GetCars();
+    }
+
+    private void Change(CarDTO c)
+    {
+        if (c.CarId == 0)
+        {
+            CarController.InsertCar(c);
+        }
+        else
+        {
+            CarController.UpdateCar(c);
+        }
+        Reload();
+    }
+
+    private void Delete(CarDTO c)
+    {
+        CarController.DeleteCar(c);
+        Reload();
+    }
+
+    private void Insert()
+    {
+        _car = new CarDTO();
+        _car.CarId = 0;
+    }
+
+}

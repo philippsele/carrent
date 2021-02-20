@@ -11,6 +11,5 @@ namespace CarRentAPI.CustomerManagmenet.Infrastructur
     {
         IList<Customer> MappingCustomerModels(IList<CustomerModel> customers);
         Customer MappingCustomerModel(CustomerModel customer);
-        CustomerModel MappingCustomer(Customer customer);
     }
 }

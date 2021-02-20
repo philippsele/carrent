@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CarRentAPI.CarManagmenet.Domain;
+using CarRentAPI.CarManagement.Domain;
 using CarRentAPI.CustomerManagmenet.Domain;
 
 namespace CarRentAPI.ContractManagement.Domain

@@ -9,7 +9,7 @@ namespace CarRentAPI.ContractManagement.Application
 {
     public interface IContractService
     {
-        IEnumerable<ContractDTO> GetContracts();
+        IList<ContractDTO> GetContracts();
         ContractDTO GetContract(int id);
         void AddContract(ContractDTO contract);
         void EditContract(ContractDTO contract);
