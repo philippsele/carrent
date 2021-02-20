@@ -142,6 +142,7 @@
     <Compile Include="ContractManagement\Application\ContractService.cs" />
     <Compile Include="ContractManagement\Application\IContractMappingService.cs" />
     <Compile Include="ContractManagement\Application\IContractService.cs" />
+    <Compile Include="ContractManagement\Application\MoneyService.cs" />
     <Compile Include="ContractManagement\Domain\Contract.cs" />
     <Compile Include="ContractManagement\Domain\IContractRepository.cs" />
     <Compile Include="ContractManagement\Infrastructur\ContractModel.cs" />

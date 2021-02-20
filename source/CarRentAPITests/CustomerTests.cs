@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CarRentAPI.ContractManagement.Application;
 using CarRentAPI.CustomerManagmenet.Domain;
 using CarRentAPI.CustomerManagmenet.Infrastructur;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -15,76 +16,15 @@ namespace CarRentAPITests
         public void CreateCustomers()
         {
             //Arrange
-            var customerRepo = new CustomerRepository();
-            var customer1 = new Customer()
-            {
-                FirstName = "Tteesstt",
-                LastName = "asdfasdf",
-                Street = "Untere Gschindstrasse 39",
-                City = "9497 Triesenberg"
-            };
-            var customer2 = new Customer()
-            {
-                FirstName = "Ttteeesssttt",
-                LastName = "asdfasdf",
-                Street = "Untere Gschindstrasse 39",
-                City = "9497 Triesenberg"
-            };
+            var moneyService = new MoneyService();
+            
 
             //Act
-            customerRepo.Insert(customer1);
-            customerRepo.Insert(customer2);
+            var check = moneyService.CalculateTotal(5, 4.5m);
 
             //Assert
-            Assert.IsTrue(customerRepo.FindByName("asdfasdf").Count >= 2);
+            Assert.IsTrue(check == 22.5m);
         }
 
-        [TestMethod]
-        public void UpdateCustomer()
-        {
-            //Arrange
-            var customerRepo = new CustomerRepository();
-            var customers = customerRepo.FindByName("asdf");
-
-            customers.First().LastName = "asdfasdfasdfasf";
-
-            //Act
-            customerRepo.Update(customers.First());
-
-            //Assert
-            Assert.IsTrue(customerRepo.FindByName("asdfasdfasdfasf").Count == 1);
-        }
-
-        [TestMethod]
-        public void GetCustomer()
-        {
-            //Arrange
-            var customerRepo = new CustomerRepository();
-            var customers = customerRepo.Get();
-            var customer = customers.First();
-
-            //Act
-            var newCustomer = customerRepo.GetById(customer.CustomerId);
-
-            //Assert
-            Assert.IsTrue(customer.LastName == newCustomer.LastName && customer.FirstName == newCustomer.FirstName);
-        }
-
-        [TestMethod]
-        public void DeleteCustomer()
-        {
-            //Arrange
-            var customerRepo = new CustomerRepository();
-            var customers = customerRepo.FindByName("asdfasdf");
-
-            //Act
-            foreach (var c in customers)
-            {
-                customerRepo.Delete(c);
-            }
-
-            //Assert
-            Assert.IsTrue(customerRepo.FindByName("asdfasdf").Count == 0);
-        }
     }
 }
