@@ -1,5 +1,197 @@
-﻿<h3>Contract</h3>
+﻿@page "/contract"
+
+@using CarRentAPI.ContractManagement.Api
+@using CarRentAPI.CarManagement.Api
+@using CarRentAPI.CustomerManagmenet.Api
+@using System.Runtime.InteropServices
+
+@inject ContractController ContractController
+@inject CarController CarController
+@inject CustomerController CustomerController
+
+<h1>Reservationsverwaltung</h1>
+
+@if (_contracts == null && _contract == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    if (_contract == null)
+    {
+        <p>Reservation mittels ID suchen: <input type="text" @bind-value="@_searchBox" @bind-value:event="oninput" /><button class="btn btn-primary" @onclick="Search">Suchen</button><button class="btn btn-primary" @onclick="Reload">Reset</button></p>
+
+        <button class="btn btn-primary" @onclick="Insert">Neue Reservation</button>
+
+        <br />
+        <br />
+        <br />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Vorname</th>
+                    <th>Nachname</th>
+                    <th>Abgeholt</th>
+                    <th>Anzahl Tage</th>
+                    <th>Auto</th>
+                    <th>Total</th>
+                    <th>Abholen</th>
+                    <th>Ändern</th>
+                    <th>Löschen</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var contract in _contracts)
+                {
+                <tr>
+                    <td>@contract.ContractId</td>
+                    <td>@contract.FirstName</td>
+                    <td>@contract.LastName</td>
+                    <td>@contract.PickedUp.ToString()</td>
+                    <td>@contract.Days</td>
+                    <td>@contract.Brand @contract.Type</td>
+                    <td>@contract.Total.ToString()</td>
+                    @if (!contract.PickedUp)
+                    {
+                        <td><button class="btn btn-primary" @onclick="@(() => PickUp(contract))">P</button></td>
+                        <td><button class="btn btn-primary" @onclick="@(() => _contract = contract)">C</button></td>
+                    }
+                    else
+                    {
+                        <td></td>
+                        <td></td>
+                    }
+                    <td><button class="btn btn-primary" @onclick="@(() => Delete(contract))">D</button></td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Kunde</th>
+                    <th>Tage</th>
+                    <th>Auto</th>
+                    <th>Total</th>
+                    <th>Neu berechnen</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@_contract.ContractId</td>
+                    <td>
+                        <select class="form-control selectpicker" @bind="@_contract.CustomerId">
+                            @foreach (var item in _customerList)
+                            {
+                                <option value="@item.CustomerId">@item.FirstName @item.LastName</option>
+                            }
+                        </select>
+                    </td>
+                    <td><input type="number" @bind-value="@_contract.Days" @bind-value:event="oninput" /></td>
+                    <td>
+                        <select class="form-control selectpicker" @bind="@_contract.CarId">
+                            @foreach (var item in _carList)
+                            {
+                                <option value="@item.CarId">@item.Brand @item.Type - @item.PricePerDay.ToString() CHF</option>
+                            }
+                        </select>
+                    </td>
+                    <td>@_contract.Total.ToString()</td>
+                    <td><button class="btn btn-primary" @onclick="@(() => Calc(_contract))">C</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-primary" @onclick="@(() => Change(_contract))">Speichern</button>
+        <button class="btn btn-primary" @onclick="@(() => Delete(_contract))">Löschen</button>
+        <button class="btn btn-primary" @onclick="@(() => _contract = null)">Zurück</button>
+    }
+
+}
 
 @code {
+    private IList<ContractDTO> _contracts;
+
+    private ContractDTO _contract;
+
+    private IList<CarDTO> _carList;
+
+    private IList<CustomerDTO> _customerList;
+
+    private string _searchBox;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _contract = null;
+        _contracts = await ContractController.GetContracts();
+        _carList = await CarController.GetCars();
+        _customerList = await CustomerController.Get();
+    }
+
+    private async Task Search()
+    {
+        int id;
+        if (int.TryParse(_searchBox, out id))
+        {
+            _contract = await ContractController.GetContract(id);
+        }
+        else
+        {
+            _searchBox = "Bitte korrekte ID eingeben!";
+        }
+
+    }
+
+    private async Task Reload()
+    {
+        _contract = null;
+        _contracts = await ContractController.GetContracts();
+    }
+
+    private void Change(ContractDTO c)
+    {
+        Calc(c);
+        if (c.ContractId == 0)
+        {
+            ContractController.AddContract(c);
+        }
+        else
+        {
+            ContractController.EditContract(c);
+        }
+        Reload();
+    }
+
+    private void Calc(ContractDTO c)
+    {
+        foreach (var car in _carList)
+        {
+            if (c.CarId == car.CarId)
+                c.PricePerDay = car.PricePerDay;
+        }
+        c.Total = ContractController.CalcTotal(c.Days, c.PricePerDay);
+    }
+
+    private void Delete(ContractDTO c)
+    {
+        ContractController.DeleteContract(c);
+        Reload();
+    }
+
+    private void Insert()
+    {
+        _contract = new ContractDTO();
+        _contract.ContractId = 0;
+    }
+
+    private void PickUp(ContractDTO c)
+    {
+        c.PickedUp = true;
+        ContractController.EditContract(c);
+    }
 
 }

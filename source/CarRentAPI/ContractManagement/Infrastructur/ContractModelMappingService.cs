@@ -33,23 +33,23 @@ namespace CarRentAPI.ContractManagement.Infrastructur
                     Class = new CarClass()
                     {
                         ClassId = c.ClassId,
-                        Class = Enum.TryParse(nameof(c.Class), out Class cl) ? cl : Class.Basic,
+                        Class = c.Class,
                         PricePerDay = c.PricePerDay
                     },
-                    TypeId = c.TypeId,
+                    TypeId = Guid.Parse(c.TypeId),
                     Type = new CarType()
                     {
-                        TypeId = c.TypeId,
+                        TypeId = Guid.Parse(c.TypeId),
                         Type = c.Type,
-                        BrandId = c.BrandId,
+                        BrandId = Guid.Parse(c.BrandId),
                         Brand = new CarBrand()
                         {
-                            BrandId = c.BrandId,
+                            BrandId = Guid.Parse(c.BrandId),
                             Brand = c.Brand
                         }
                     }
                 },
-                Status = Enum.TryParse(nameof(c.Status), out Status st) ? st : Status.Reservation,
+                PickedUp = c.PickedUp,
                 Days = c.Days,
                 Total = c.Total
             }).ToList();
@@ -77,23 +77,23 @@ namespace CarRentAPI.ContractManagement.Infrastructur
                     Class = new CarClass()
                     {
                         ClassId = c.ClassId,
-                        Class = Enum.TryParse(nameof(c.Class), out Class cl) ? cl : Class.Basic,
+                        Class = c.Class,
                         PricePerDay = c.PricePerDay
                     },
-                    TypeId = c.TypeId,
+                    TypeId = Guid.Parse(c.TypeId),
                     Type = new CarType()
                     {
-                        TypeId = c.TypeId,
+                        TypeId = Guid.Parse(c.TypeId),
                         Type = c.Type,
-                        BrandId = c.BrandId,
+                        BrandId = Guid.Parse(c.BrandId),
                         Brand = new CarBrand()
                         {
-                            BrandId = c.BrandId,
+                            BrandId = Guid.Parse(c.BrandId),
                             Brand = c.Brand
                         }
                     }
                 },
-                Status = Enum.TryParse(nameof(c.Status), out Status st) ? st : Status.Reservation,
+                PickedUp = c.PickedUp,
                 Days = c.Days,
                 Total = c.Total
             };

@@ -11,7 +11,7 @@ namespace CarRentAPI.CarManagement.Domain
         public int CarId { get; set; }
         public Guid TypeId { get; set; }
         public CarType Type { get; set; }
-        public Guid ClassId { get; set; }
+        public int ClassId { get; set; }
         public CarClass Class { get; set; }
     }
 }

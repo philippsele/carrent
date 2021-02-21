@@ -17,11 +17,18 @@ namespace CarRentAPI.ContractManagement.Application
     {
         private readonly IContractRepository _contractRepository;
         private readonly IContractMappingService _mapping;
+        private readonly CalculationService _calculationService;
 
         public ContractService()
         {
             _contractRepository = new ContractRepository();
             _mapping = new ContractMappingService();
+            _calculationService = new CalculationService();
+        }
+
+        public decimal CalcTotal(int days, decimal pricePerDay)
+        {
+            return _calculationService.CalcTotal(days, pricePerDay);
         }
 
         public IList<ContractDTO> GetContracts()

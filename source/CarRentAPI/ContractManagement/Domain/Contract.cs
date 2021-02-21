@@ -20,7 +20,7 @@ namespace CarRentAPI.ContractManagement.Domain
         public Customer Customer { get; set; }
         public int CarId { get; set; }
         public Car Car { get; set; }
-        public Status Status { get; set; }
+        public bool PickedUp { get; set; }
         public int Days { get; set; }
         public decimal Total { get; set; }
     }

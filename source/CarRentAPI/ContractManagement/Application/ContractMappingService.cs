@@ -15,7 +15,7 @@ namespace CarRentAPI.ContractManagement.Application
             var returnList = contracts.Select(c => new ContractDTO()
             {
                 ContractId = c.ContractId,
-                Status = c.Status.ToString(),
+                PickedUp = c.PickedUp,
                 Days = c.Days,
                 Total = c.Total,
                 CustomerId = c.Customer.CustomerId,
@@ -36,7 +36,7 @@ namespace CarRentAPI.ContractManagement.Application
         {
             var returnContract = new ContractDTO();
             returnContract.ContractId = contract.ContractId;
-            returnContract.Status = contract.Status.ToString();
+            returnContract.PickedUp = contract.PickedUp;
             returnContract.Days = contract.Days;
             returnContract.Total = contract.Total;
             returnContract.CustomerId = contract.Customer.CustomerId;
@@ -56,11 +56,11 @@ namespace CarRentAPI.ContractManagement.Application
         {
             var returnContract = new Contract();
             returnContract.ContractId = contract.ContractId.GetValueOrDefault(-1);
-            returnContract.Status = Enum.TryParse(nameof(contract.Status), out Status status) ? status : Status.Reservation;
+            returnContract.PickedUp = contract.PickedUp;
             returnContract.Days = contract.Days;
             returnContract.Total = contract.Total;
-            returnContract.CustomerId = contract.CustomerId;
-            returnContract.CarId = contract.CarId;
+            returnContract.CustomerId = contract.CustomerId.GetValueOrDefault(0);
+            returnContract.CarId = contract.CarId.GetValueOrDefault(0);
             return returnContract;
         }
     }

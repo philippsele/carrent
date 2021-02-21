@@ -24,6 +24,11 @@ namespace CarRentAPI.ContractManagement.Api
             return Task.FromResult(_contractService.GetContract(id));
         }
 
+        public decimal CalcTotal(int days, decimal pricePerDay)
+        {
+            return _contractService.CalcTotal(days, pricePerDay);
+        }
+
         public void AddContract(ContractDTO contract)
         {
             _contractService.AddContract(contract);

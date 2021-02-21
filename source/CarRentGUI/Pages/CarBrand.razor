@@ -1,5 +1,87 @@
-﻿<h3>CarBrand</h3>
+﻿@page "/carBrand"
+
+@using CarRentAPI.CarManagement.Api
+
+@inject CarController CarController
+
+<h1>Automarken Verwaltung</h1>
+
+<br />
+<br />
+<br />
+
+@if (_carBrands == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Marke</th>
+                <th>Speichern</th>
+                <th>Löschen</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var brand in _carBrands)
+            {
+                <tr>
+                    <td><input type="text" @bind-value="@brand.Brand" @bind-value:event="oninput" /></td>
+                    <td><button class="btn btn-primary" @onclick="@(() => Change(brand))">S</button></td>
+                    <td><button class="btn btn-primary" @onclick="@(() => Delete(brand))">D</button></td>
+                </tr>
+            }
+            <tr>
+                <td><input type="text" @bind-value="@_brand.Brand" @bind-value:event="oninput" /></td>
+                <td><button class="btn btn-primary" @onclick="@(() => Change(_brand))">S</button></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+}
+
 
 @code {
+    private IList<CarBrandDTO> _carBrands;
+    private CarBrandDTO _brand;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _carBrands = await CarController.GetBrand();
+        _brand = new CarBrandDTO()
+        {
+            Brand = ""
+        };
+    }
+
+    private async Task Reload()
+    {
+        _carBrands = await CarController.GetBrand();
+        _brand = new CarBrandDTO()
+        {
+            Brand = ""
+        };
+    }
+
+    private void Change(CarBrandDTO c)
+    {
+        if (c.CarBrandId == null)
+        {
+            CarController.InsertBrand(c);
+        }
+        else
+        {
+            CarController.UpdateBrand(c);
+        }
+        Reload();
+    }
+
+    private void Delete(CarBrandDTO c)
+    {
+        CarController.DeleteBrand(c);
+        Reload();
+    }
 
 }

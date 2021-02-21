@@ -138,6 +138,7 @@
     <Compile Include="Common\SqlDataAccess.cs" />
     <Compile Include="ContractManagement\Api\ContractController.cs" />
     <Compile Include="ContractManagement\Api\ContractDTO.cs" />
+    <Compile Include="ContractManagement\Application\CalculationService.cs" />
     <Compile Include="ContractManagement\Application\ContractMappingService.cs" />
     <Compile Include="ContractManagement\Application\ContractService.cs" />
     <Compile Include="ContractManagement\Application\IContractMappingService.cs" />

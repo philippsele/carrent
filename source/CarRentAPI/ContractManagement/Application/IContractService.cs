@@ -11,6 +11,7 @@ namespace CarRentAPI.ContractManagement.Application
     {
         IList<ContractDTO> GetContracts();
         ContractDTO GetContract(int id);
+        decimal CalcTotal(int days, decimal PricePerDay);
         void AddContract(ContractDTO contract);
         void EditContract(ContractDTO contract);
         void DeleteContract(ContractDTO contract);

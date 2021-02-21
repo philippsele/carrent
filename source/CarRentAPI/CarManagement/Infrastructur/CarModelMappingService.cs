@@ -16,18 +16,18 @@ namespace CarRentAPI.CarManagement.Infrastructur
                 Class = new CarClass()
                 {
                     ClassId = c.ClassId,
-                    Class = Enum.TryParse(nameof(c.Class), out Class cl) ? cl : Class.Basic,
+                    Class = c.Class,
                     PricePerDay = c.PricePerDay
                 },
-                TypeId = c.TypeId,
+                TypeId = Guid.Parse(c.TypeId),
                 Type = new CarType()
                 {
-                    TypeId = c.TypeId,
+                    TypeId = Guid.Parse(c.TypeId),
                     Type = c.Type,
-                    BrandId = c.BrandId,
+                    BrandId = Guid.Parse(c.BrandId),
                     Brand = new CarBrand()
                     {
-                        BrandId = c.BrandId,
+                        BrandId = Guid.Parse(c.BrandId),
                         Brand = c.Brand
                     }
                 }
@@ -44,18 +44,18 @@ namespace CarRentAPI.CarManagement.Infrastructur
                 Class = new CarClass()
                 {
                     ClassId = car.ClassId,
-                    Class = Enum.TryParse(nameof(car.Class), out Class cl) ? cl : Class.Basic,
+                    Class = car.Class,
                     PricePerDay = car.PricePerDay
                 },
-                TypeId = car.TypeId,
+                TypeId = Guid.Parse(car.TypeId),
                 Type = new CarType()
                 {
-                    TypeId = car.TypeId,
+                    TypeId = Guid.Parse(car.TypeId),
                     Type = car.Type,
-                    BrandId = car.BrandId,
+                    BrandId = Guid.Parse(car.BrandId),
                     Brand = new CarBrand()
                     {
-                        BrandId = car.BrandId,
+                        BrandId = Guid.Parse(car.BrandId),
                         Brand = car.Brand
                     }
                 }
@@ -67,12 +67,12 @@ namespace CarRentAPI.CarManagement.Infrastructur
         {
             var returnList = type.Select(c => new CarType()
             {
-                TypeId = c.TypeId,
+                TypeId = Guid.Parse(c.TypeId),
                 Type = c.Type,
-                BrandId = c.BrandId,
+                BrandId = Guid.Parse(c.BrandId),
                 Brand = new CarBrand()
                 {
-                    BrandId = c.BrandId,
+                    BrandId = Guid.Parse(c.BrandId),
                     Brand = c.Brand
                 }
             }).ToList();
@@ -83,12 +83,12 @@ namespace CarRentAPI.CarManagement.Infrastructur
         {
             var returnCarType = new CarType()
             {
-                TypeId = type.TypeId,
+                TypeId = Guid.Parse(type.TypeId),
                 Type = type.Type,
-                BrandId = type.BrandId,
+                BrandId = Guid.Parse(type.BrandId),
                 Brand = new CarBrand()
                 {
-                    BrandId = type.BrandId,
+                    BrandId = Guid.Parse(type.BrandId),
                     Brand = type.Brand
                 }
             };
@@ -99,7 +99,7 @@ namespace CarRentAPI.CarManagement.Infrastructur
         {
             var returnList = brand.Select(c => new CarBrand()
             {
-                BrandId = c.BrandId,
+                BrandId = Guid.Parse(c.BrandId),
                 Brand = c.Brand
             }).ToList();
             return returnList;
@@ -109,7 +109,7 @@ namespace CarRentAPI.CarManagement.Infrastructur
         {
             var returnCarBrand = new CarBrand()
             {
-                BrandId = brand.BrandId,
+                BrandId = Guid.Parse(brand.BrandId),
                 Brand = brand.Brand
             };
             return returnCarBrand;
@@ -120,7 +120,7 @@ namespace CarRentAPI.CarManagement.Infrastructur
             var returnList = cls.Select(c => new CarClass()
             {
                 ClassId = c.ClassId,
-                Class = Enum.TryParse(nameof(c.Class), out Class cl) ? cl : Class.Basic,
+                Class = c.Class,
                 PricePerDay = c.PricePerDay
             }).ToList();
             return returnList;
@@ -131,7 +131,18 @@ namespace CarRentAPI.CarManagement.Infrastructur
             var returnCarClass = new CarClass()
             {
                 ClassId = cls.ClassId,
-                Class = Enum.TryParse(nameof(cls.Class), out Class cl) ? cl : Class.Basic,
+                Class = cls.Class,
+                PricePerDay = cls.PricePerDay
+            };
+            return returnCarClass;
+        }
+
+        public CarClassModel MappingCarClass(CarClass cls)
+        {
+            var returnCarClass = new CarClassModel()
+            {
+                ClassId = cls.ClassId,
+                Class = cls.Class,
                 PricePerDay = cls.PricePerDay
             };
             return returnCarClass;

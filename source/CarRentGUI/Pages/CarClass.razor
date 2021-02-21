@@ -1,5 +1,59 @@
-﻿<h3>CarClass</h3>
+﻿@page "/carClass"
+
+@using CarRentAPI.CarManagement.Api
+
+@inject CarController CarController
+
+<h1>Auto Klassen Verwaltung</h1>
+
+<br />
+<br />
+<br />
+
+@if (_carClasses == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Klasse</th>
+            <th>Preis pro Tag</th>
+        </tr>
+        </thead>
+        <tbody>
+            @foreach (var carClass in _carClasses)
+            {
+            <tr>
+                <td>@carClass.CarClassId</td>
+                <td>@carClass.Class</td>
+                <td><input type="Number" @bind-value="@carClass.PricePerDay" @bind-value:event="oninput" /></td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    <button class="btn btn-primary" @onclick="@(() => Change())">Speichern</button>
+    
+
+}
 
 @code {
+    private IList<CarClassDTO> _carClasses;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _carClasses = await CarController.GetClass();
+    }
+
+    private void Change()
+    {
+        foreach (var cls in _carClasses)
+        {
+            CarController.UpdateClass(cls);
+        }
+    }
 
 }

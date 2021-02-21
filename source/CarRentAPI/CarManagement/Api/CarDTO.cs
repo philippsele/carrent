@@ -12,7 +12,7 @@ namespace CarRentAPI.CarManagement.Api
         public Guid TypeId { get; set; }
         public string Type { get; set; }
         public string Brand { get; set; }
-        public Guid ClassId { get; set; }
+        public int ClassId { get; set; }
         public string Class { get; set; }
         public decimal PricePerDay { get; set; }
     }

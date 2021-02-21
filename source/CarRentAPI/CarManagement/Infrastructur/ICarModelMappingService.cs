@@ -16,5 +16,6 @@ namespace CarRentAPI.CarManagement.Infrastructur
 
         IList<CarClass> MappingCarClassModels(IList<CarClassModel> cls);
         CarClass MappingCarClassModel(CarClassModel cls);
+        CarClassModel MappingCarClass(CarClass cls);
     }
 }

@@ -1,5 +1,105 @@
-﻿<h3>CarType</h3>
+﻿@page "/carType"
+
+@using CarRentAPI.CarManagement.Api
+
+@inject CarController CarController
+
+<h1>Auto Typ Verwaltung</h1>
+
+<br />
+<br />
+<br />
+
+@if (_carTypes == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Typ</th>
+                <th>Marke</th>
+                <th>Speichern</th>
+                <th>Löschen</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var type in _carTypes)
+            {
+                <tr>
+                    <td><input type="text" @bind-value="@type.Type" @bind-value:event="oninput" /></td>
+                    <td><select class="form-control selectpicker" @bind="@type.BrandId">
+                        @*<option>--select--</option>*@
+                        @foreach (var item in _carBrands)
+                        {
+                            <option value="@item.CarBrandId">@item.Brand</option>
+                        }
+                    </select></td>
+                    <td><button class="btn btn-primary" @onclick="@(() => Change(type))">S</button></td>
+                    <td><button class="btn btn-primary" @onclick="@(() => Delete(type))">D</button></td>
+                </tr>
+            }
+            <tr>
+                <td><input type="text" @bind-value="@_carType.Type" @bind-value:event="oninput" /></td>
+                <td><select class="form-control selectpicker" @bind="_carType.BrandId">
+                    @*<option>--select--</option>*@
+                    @foreach (var item in _carBrands)
+                    {
+                        <option value="@item.CarBrandId">@item.Brand</option>
+                    }
+                </select></td>
+                <td><button class="btn btn-primary" @onclick="@(() => Change(_carType))">S</button></td>
+                <td><button class="btn btn-primary" @onclick="@(() => Delete(_carType))">D</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+}
 
 @code {
+    private IList<CarTypeDTO> _carTypes;
+    private CarTypeDTO _carType;
+
+    private IList<CarBrandDTO> _carBrands;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _carTypes = await CarController.GetType();
+        _carBrands = await CarController.GetBrand();
+        _carType = new CarTypeDTO()
+        {
+            Type = ""
+        };
+    }
+
+    private async Task Reload()
+    {
+        _carTypes = await CarController.GetType();
+        _carType = new CarTypeDTO()
+        {
+            Type = ""
+        };
+    }
+
+    private void Change(CarTypeDTO c)
+    {
+        if (c.CarTypeId == null)
+        {
+            CarController.InsertType(c);
+        }
+        else
+        {
+            CarController.UpdateType(c);
+        }
+        Reload();
+    }
+
+    private void Delete(CarTypeDTO c)
+    {
+        CarController.DeleteType(c);
+        Reload();
+    }
 
 }

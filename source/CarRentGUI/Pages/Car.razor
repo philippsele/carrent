@@ -6,15 +6,6 @@
 
 <h1>Auto Verwaltung</h1>
 
-<p>Auto mittels ID suchen: <input type="text" @bind-value="@_searchBox" @bind-value:event="oninput" /><button class="btn btn-primary" @onclick="Search">Suchen</button><button class="btn btn-primary" @onclick="Reload">Reset</button></p>
-
-
-<button class="btn btn-primary" @onclick="Insert">Neuer Kunde</button>
-
-<br />
-<br />
-<br />
-
 @if (_cars == null && _car == null)
 {
     <p><em>Loading...</em></p>
@@ -23,6 +14,13 @@ else
 {
     if (_car == null)
     {
+        <p>Auto mittels ID suchen: <input type="text" @bind-value="@_searchBox" @bind-value:event="oninput" /><button class="btn btn-primary" @onclick="Search">Suchen</button><button class="btn btn-primary" @onclick="Reload">Reset</button></p>
+
+        <button class="btn btn-primary" @onclick="Insert">Neuer Kunde</button>
+
+        <br />
+        <br />
+        <br />
         <table class="table">
             <thead>
                 <tr>
@@ -58,18 +56,28 @@ else
                 <tr>
                     <th>ID</th>
                     <th>Type</th>
-                    <th>Marke</th>
                     <th>Klasse</th>
-                    <th>Preis pro Tag</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>@_car.CarId</td>
-                    <td><input type="text" @bind-value="@_car.Type" @bind-value:event="oninput" /></td>
-                    <td><input type="text" @bind-value="@_car.Brand" @bind-value:event="oninput" /></td>
-                    <td><input type="text" @bind-value="@_car.Class" @bind-value:event="oninput" /></td>
-                    <td><input type="text" @bind-value="@_car.PricePerDay" @bind-value:event="oninput" /></td>
+                    <td>
+                        <select class="form-control selectpicker" @bind="_car.TypeId">
+                            @foreach (var item in _typeList)
+                            {
+                                <option value="@item.CarTypeId">@item.Brand @item.Type</option>
+                            }
+                        </select>
+                    </td>
+                    <td>
+                        <select class="form-control selectpicker" @bind="_car.ClassId">
+                            @foreach (var item in _classList)
+                            {
+                                <option value="@item.CarClassId">@item.Class - @item.PricePerDay.ToString() CHF</option>
+                            }
+                        </select>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -85,12 +93,18 @@ else
 
     private CarDTO _car;
 
+    private IList<CarTypeDTO> _typeList;
+
+    private IList<CarClassDTO> _classList;
+
     private string _searchBox;
 
     protected override async Task OnInitializedAsync()
     {
         _car = null;
         _cars = await CarController.GetCars();
+        _typeList = await CarController.GetType();
+        _classList = await CarController.GetClass();
     }
 
     private async Task Search()

@@ -88,8 +88,8 @@ namespace CarRentAPI.CarManagement.Application
         {
             var returnClass = new CarClass
             {
-                ClassId = cls.CarClassId.GetValueOrDefault(Guid.NewGuid()),
-                Class = Enum.TryParse(nameof(cls.Class), out Class cl) ? cl : Class.Basic,
+                ClassId = cls.CarClassId,
+                Class = cls.Class,
                 PricePerDay = cls.PricePerDay
             };
             return returnClass;

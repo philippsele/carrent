@@ -6,16 +6,10 @@ using System.Threading.Tasks;
 
 namespace CarRentAPI.CarManagement.Domain
 {
-    public enum Class
-    {
-        Luxury,
-        Medium,
-        Basic
-    }
     public class CarClass
     {
-        public Guid ClassId { get; set; }
-        public Class Class { get; set; }
+        public int ClassId { get; set; }
+        public string Class { get; set; }
         public decimal PricePerDay { get; set; }
     }
 }
