@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Data.Entity.ModelConfiguration.Configuration;
 using System.Linq;
 using CarRentAPI.CustomerManagmenet.Domain;
 using System.Data.SqlClient;
