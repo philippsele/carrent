@@ -31,7 +31,6 @@ else
                 <tr>
                     <td><input type="text" @bind-value="@type.Type" @bind-value:event="oninput" /></td>
                     <td><select class="form-control selectpicker" @bind="@type.BrandId">
-                        @*<option>--select--</option>*@
                         @foreach (var item in _carBrands)
                         {
                             <option value="@item.CarBrandId">@item.Brand</option>
@@ -41,18 +40,26 @@ else
                     <td><button class="btn btn-primary" @onclick="@(() => Delete(type))">D</button></td>
                 </tr>
             }
-            <tr>
-                <td><input type="text" @bind-value="@_carType.Type" @bind-value:event="oninput" /></td>
-                <td><select class="form-control selectpicker" @bind="_carType.BrandId">
-                    @*<option>--select--</option>*@
+        <tr>
+            <td><input type="text" @bind-value="@_carType.Type" @bind-value:event="oninput" /></td>
+            <td>
+                <select class="form-control selectpicker" @bind="_carType.BrandId">
                     @foreach (var item in _carBrands)
                     {
                         <option value="@item.CarBrandId">@item.Brand</option>
                     }
-                </select></td>
+                </select>
+            </td>
+            @if (_carType.BrandId != null)
+            {
                 <td><button class="btn btn-primary" @onclick="@(() => Change(_carType))">S</button></td>
-                <td><button class="btn btn-primary" @onclick="@(() => Delete(_carType))">D</button></td>
-            </tr>
+            }
+            else
+            {
+                <td></td>
+            }
+            <td><button class="btn btn-primary" @onclick="@(() => Delete(_carType))">D</button></td>
+        </tr>
         </tbody>
     </table>
 

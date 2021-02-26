@@ -81,7 +81,10 @@ else
                 </tr>
             </tbody>
         </table>
-        <button class="btn btn-primary" @onclick="@(() => Change(_car))">Speichern</button>
+        @if (_car.TypeId != null && _car.ClassId != null)
+        {
+            <button class="btn btn-primary" @onclick="@(() => Change(_car))">Speichern</button>
+        }
         <button class="btn btn-primary" @onclick="@(() => Delete(_car))">Löschen</button>
         <button class="btn btn-primary" @onclick="@(() => _car = null)">Zurück</button>
     }

@@ -44,26 +44,26 @@ else
             <tbody>
                 @foreach (var contract in _contracts)
                 {
-                <tr>
-                    <td>@contract.ContractId</td>
-                    <td>@contract.FirstName</td>
-                    <td>@contract.LastName</td>
-                    <td>@contract.PickedUp.ToString()</td>
-                    <td>@contract.Days</td>
-                    <td>@contract.Brand @contract.Type</td>
-                    <td>@contract.Total.ToString()</td>
-                    @if (!contract.PickedUp)
-                    {
-                        <td><button class="btn btn-primary" @onclick="@(() => PickUp(contract))">P</button></td>
-                        <td><button class="btn btn-primary" @onclick="@(() => _contract = contract)">C</button></td>
-                    }
-                    else
-                    {
-                        <td></td>
-                        <td></td>
-                    }
-                    <td><button class="btn btn-primary" @onclick="@(() => Delete(contract))">D</button></td>
-                </tr>
+                    <tr>
+                        <td>@contract.ContractId</td>
+                        <td>@contract.FirstName</td>
+                        <td>@contract.LastName</td>
+                        <td>@contract.PickedUp.ToString()</td>
+                        <td>@contract.Days</td>
+                        <td>@contract.Brand @contract.Type</td>
+                        <td>@contract.Total.ToString()</td>
+                        @if (!contract.PickedUp)
+                        {
+                            <td><button class="btn btn-primary" @onclick="@(() => PickUp(contract))">P</button></td>
+                            <td><button class="btn btn-primary" @onclick="@(() => _contract = contract)">C</button></td>
+                        }
+                        else
+                        {
+                            <td></td>
+                            <td></td>
+                        }
+                        <td><button class="btn btn-primary" @onclick="@(() => Delete(contract))">D</button></td>
+                    </tr>
                 }
             </tbody>
         </table>
@@ -86,6 +86,7 @@ else
                     <td>@_contract.ContractId</td>
                     <td>
                         <select class="form-control selectpicker" @bind="@_contract.CustomerId">
+                            <option>--select--</option>
                             @foreach (var item in _customerList)
                             {
                                 <option value="@item.CustomerId">@item.FirstName @item.LastName</option>
@@ -95,6 +96,7 @@ else
                     <td><input type="number" @bind-value="@_contract.Days" @bind-value:event="oninput" /></td>
                     <td>
                         <select class="form-control selectpicker" @bind="@_contract.CarId">
+                            <option>--select--</option>
                             @foreach (var item in _carList)
                             {
                                 <option value="@item.CarId">@item.Brand @item.Type - @item.PricePerDay.ToString() CHF</option>
@@ -106,7 +108,10 @@ else
                 </tr>
             </tbody>
         </table>
-        <button class="btn btn-primary" @onclick="@(() => Change(_contract))">Speichern</button>
+        @if (_contract.CustomerId != null && _contract.CarId != null)
+        {
+            <button class="btn btn-primary" @onclick="@(() => Change(_contract))">Speichern</button>
+        }
         <button class="btn btn-primary" @onclick="@(() => Delete(_contract))">Löschen</button>
         <button class="btn btn-primary" @onclick="@(() => _contract = null)">Zurück</button>
     }
