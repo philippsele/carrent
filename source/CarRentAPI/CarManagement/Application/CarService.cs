@@ -85,7 +85,7 @@ namespace CarRentAPI.CarManagement.Application
 
         #region Type
 
-        public IList<CarTypeDTO> GetType()
+        public new IList<CarTypeDTO> GetType()
         {
             return _mapping.MappingCarTypes(_carRepository.GetType());
         }

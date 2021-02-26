@@ -87,7 +87,7 @@ namespace CarRentAPI.CarManagement.Infrastructur
 
 
         #region Type
-        public IList<CarType> GetType()
+        public new IList<CarType> GetType()
         {
             var sql = "Select TypeId, Type, BrandId, Brand from CarVtype";
             return _mapping.MappingCarTypeModels(_sqlDataAccess.LoadData<CarTypeModel>(sql).ToList());

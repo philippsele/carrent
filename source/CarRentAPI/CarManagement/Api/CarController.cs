@@ -83,7 +83,7 @@ namespace CarRentAPI.CarManagement.Api
 
         #region Type
 
-        public Task<IList<CarTypeDTO>> GetType()
+        public new Task<IList<CarTypeDTO>> GetType()
         {
             return Task.FromResult(_carService.GetType());
         }
