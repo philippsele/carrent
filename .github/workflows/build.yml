@@ -46,4 +46,4 @@ jobs:
           dotnet restore ./source
           dotnet build --no-restore ./source
           dotnet test --no-build --verbosity normal ./source
-          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+          .\.sonar\scanner\dotnet-framework-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
